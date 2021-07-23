@@ -6,7 +6,7 @@
  * Copyright (c) 2017, Alex Wilson <alex@cooperi.net>
  */
 
-package net.cooperi.ykotpapplet;
+package com.vivokey.ykhmac;
 
 import javacard.framework.ISO7816;
 import javacard.framework.ISOException;

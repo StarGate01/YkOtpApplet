@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "sdks/jc222_kit/lib/api.jar"
+    ]
+	
+}

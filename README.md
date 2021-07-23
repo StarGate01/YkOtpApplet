@@ -1,11 +1,6 @@
-:toc: left
-:source-highlighter: pygments
-:doctype: book
-:idprefix:
-:docinfo:
+# VivoKey fork of YkOtpApplet
 
-# YkOtpApplet
-
+Parent repository: https://github.com/arekinath/YkOtpApplet by Alex Wilson
 ## About
 
 This is a JavaCard applet that emulates the HMAC challenge-response

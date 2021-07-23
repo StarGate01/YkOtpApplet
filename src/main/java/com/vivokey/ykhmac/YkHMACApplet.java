@@ -6,7 +6,7 @@
  * Copyright (c) 2017, Alex Wilson <alex@cooperi.net>
  */
 
-package net.cooperi.ykotpapplet;
+package com.vivokey.ykhmac;
 
 import javacard.framework.APDU;
 import javacard.framework.Applet;
@@ -27,7 +27,7 @@ import javacard.security.HMACKey;
 import javacardx.crypto.Cipher;
 import javacardx.apdu.ExtendedLength;
 
-public class YkOtpApplet extends Applet implements ExtendedLength
+public class YkHMACApplet extends Applet implements ExtendedLength
 {
 	private static final byte[] APP_VERSION = {
 		(byte)0x04, (byte)0x00, (byte)0x00
@@ -75,12 +75,12 @@ public class YkOtpApplet extends Applet implements ExtendedLength
 	public static void
 	install(byte[] info, short off, byte len)
 	{
-		final YkOtpApplet applet = new YkOtpApplet();
+		final YkHMACApplet applet = new YkHMACApplet();
 		applet.register();
 	}
 
 	protected
-	YkOtpApplet()
+	YkHMACApplet()
 	{
 		randData = RandomData.getInstance(RandomData.ALG_SECURE_RANDOM);
 
