@@ -4,8 +4,8 @@
     <get src="https://github.com/martinpaljak/ant-javacard/releases/download/v20.03.25/ant-javacard.jar" skipexisting="true" dest="."/>
     <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ant-javacard.jar"/>
     <javacard jckit="sdks/jc222_kit">
-      <cap targetsdk="sdks/jc222_kit" output="target/YkHMACApplet.cap" sources="src" aid="a0:00:00:05:27:20" version="1.0">
-        <applet class="com.vivokey.ykhmac.YkHMACApplet" aid="a0:00:00:05:27:20:01"/>
+      <cap targetsdk="sdks/jc222_kit" output="target/YkHMACApplet.cap" sources="src" aid="A0:00:00:06:17:00:07:53:4E:AF" version="1.0">
+        <applet class="com.vivokey.ykhmac.YkHMACApplet" aid="A0:00:00:06:17:00:07:53:4E:AF:01"/>
       </cap>
     </javacard>
   </target>
