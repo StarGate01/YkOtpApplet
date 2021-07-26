@@ -1,0 +1,76 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Applet",
+            "type": "shell",
+            "command": "ant dist",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean Applet",
+            "type": "shell",
+            "command": "ant clean",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build jcardsim",
+            "type": "shell",
+            "command": "mvn initialize && mvn clean install",
+            "options": {
+                "env": {
+                    "JC_CLASSIC_HOME": "${workspaceFolder}/sdks/jc305u3_kit/"
+                },
+                "cwd": "${workspaceFolder}/tools/jcardsim"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build yktool",
+            "type": "shell",
+            "command": "make yktool.jar",
+            "options": {
+                "cwd": "${workspaceFolder}/tools/yktool"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "List Keys",
+            "type": "shell",
+            "command": "java -jar yktool.jar list",
+            "options": {
+                "cwd": "${workspaceFolder}/tools/yktool"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Program Sample HMAC",
+            "type": "shell",
+            "command": "echo 'b6e3f555562c894b7af13b1db37f28deff3ea89b' | java -jar yktool.jar program hmac 1 -x -X",
+            "options": {
+                "cwd": "${workspaceFolder}/tools/yktool"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Emulate",
+            "type": "shell",
+            "command": "java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target:./sdks/jc222_kit/lib/api.jar com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+        }
+    ]
+}
