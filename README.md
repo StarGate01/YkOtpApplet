@@ -45,7 +45,7 @@ You might have to compile `fdsm` yourself, and even switch to a more recent JDK 
 
 Since you probably do not have the application keys to deploy this specific AID, you can adjust the IDs in `build.xml` to match your Fidesmo developer keys.
 
-## ADPU Testing
+## APDU Testing
 
 Install [Maven](https://maven.apache.org/) (might be available in your package manager), then build  the **jcardsim** submodule or use the configured VS Code build task:
 
@@ -134,7 +134,7 @@ Nr.  Card  Features  Name
 
 </details>
 
-Next, send the initial boot ADPU to create the applet, or use the VS Code  test task configured:
+Next, send the initial boot APDU to create the applet, or use the VS Code  test task configured:
 
 ```
 $ opensc-tool -r 'Virtual PCD 00 00' -s '80 b8 00 00 0e 07 a0 00 00 05 27 20 01 05 00 00 02 F F 7f'
