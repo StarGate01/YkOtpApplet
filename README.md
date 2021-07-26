@@ -17,6 +17,10 @@ What works:
 
 ## Building
 
+All of the procedures have been tested on Linux, but should work on Windows and OSX as well. The following instructions are for Linux. 
+
+It is also recommended to use VS Code, because then you can use the configured tasks instead of typing the all the commands out.
+
 Clone this repository:
 
 ```
@@ -39,7 +43,9 @@ $ java -jar fdsm.jar --install target/YkHMACApplet.cap
 
 You might have to compile `fdsm` yourself, and even switch to a more recent JDK for it.
 
-## Emulation
+Since you probably do not have the application keys to deploy this specific AID, you can adjust the IDs in `build.xml` to match your Fidesmo developer keys.
+
+## ADPU Testing
 
 Install [Maven](https://maven.apache.org/) (might be available in your package manager), then build  the **jcardsim** submodule or use the configured VS Code build task:
 
@@ -49,15 +55,16 @@ $ JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn initialize
 § JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn clean install
 ```
 
-Then test the applet using some sample APDUs, or use the configured VC Code test task:
+Then test the applet using some sample APDUs, or use the configured VS Code test task:
 
 ```
 $ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.utils.APDUScriptTool test/jcardsim.cfg test/apdu.script
 ```
 
-**PC/SC Emulation is a work in progress and does not yet work**
+## PC/SC Emulation
 
-Install [vsmartcard](https://frankmorgner.github.io/vsmartcard/) and make sure it runs and connects to your PC/SC service. 
+Install [vsmartcard](https://frankmorgner.github.io/vsmartcard/) (might be available in your package manager) and make sure it runs and connects to your PC/SC service.
+
 
 Then emulate the applet, or use the configured VS Code test task:
 
@@ -65,11 +72,82 @@ Then emulate the applet, or use the configured VS Code test task:
 $ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg
 ```
 
-If everything works, `pcsc_scan` should show a reader `Virtual PCD 00 00` with the applet emulated in it.
+If everything works, a reader `Virtual PCD 00 00` with the applet emulated in it should show: 
 
-### Programming the secret
+<details>
+<summary>pcsc_scan</summary>
 
-Build the **yktool** submodule, or use the configures VS Code build task:
+```
+$ pcsc_scan
+
+ Reader 0: Virtual PCD 00 00
+  Event number: 13
+  Card state: Card inserted, 
+  ATR: 3B 8D 80 01 80 73 C0 21 C0 57 59 75 62 69 4B 65 79 F9
+
+ATR: 3B 8D 80 01 80 73 C0 21 C0 57 59 75 62 69 4B 65 79 F9
++ TS = 3B --> Direct Convention
++ T0 = 8D, Y(1): 1000, K: 13 (historical bytes)
+  TD(1) = 80 --> Y(i+1) = 1000, Protocol T = 0 
+-----
+  TD(2) = 01 --> Y(i+1) = 0000, Protocol T = 1 
+-----
++ Historical bytes: 80 73 C0 21 C0 57 59 75 62 69 4B 65 79
+  Category indicator byte: 80 (compact TLV data object)
+    Tag: 7, len: 3 (card capabilities)
+      Selection methods: C0
+        - DF selection by full DF name
+        - DF selection by partial DF name
+      Data coding byte: 21
+        - Behaviour of write functions: proprietary
+        - Value 'FF' for the first byte of BER-TLV tag fields: invalid
+        - Data unit in quartets: 2
+      Command chaining, length fields and logical channels: C0
+        - Command chaining
+        - Extended Lc and Le fields
+        - Logical channel number assignment: No logical channel
+        - Maximum number of logical channels: 1
+    Tag: 5, len: 7 (card issuer's data)
+      Card issuer data: 59 75 62 69 4B 65 79
++ TCK = F9 (correct checksum)
+
+Possibly identified card (using /usr/share/pcsc/smartcard_list.txt):
+3B 8D 80 01 80 73 C0 21 C0 57 59 75 62 69 4B 65 79 F9
+	Yubikey 5 NFC (via NFC) (Other)
+	https://www.yubico.com/product/yubikey-5-nfc/#yubikey-5-nfc
+```
+
+</details>
+
+<details>
+<summary>opensc-tool</summary>
+
+```
+$ opensc-tool -l
+
+# Detected readers (pcsc)
+Nr.  Card  Features  Name
+0    Yes             Virtual PCD 00 00
+1    No              Virtual PCD 00 01
+
+```
+
+</details>
+
+Next, send the initial boot ADPU to create the applet, or use the VS Code  test task configured:
+
+```
+$ opensc-tool -r 'Virtual PCD 00 00' -s '80 b8 00 00 0e 07 a0 00 00 05 27 20 01 05 00 00 02 F F 7f'
+Sending: 80 B8 00 00 0E 07 A0 00 00 05 27 20 01 05 00 00 02 FF 7F 
+Received (SW1=0x90, SW2=0x00):
+A0 00 00 05 27 20 01 ....' .
+```
+
+From there on, the applet should behave like a hardware card running the applet and should be able to accept and generate HMACs.
+
+## Programming a secret
+
+Build the **yktool** submodule, or use the configured VS Code build task:
 
 ```
 $ cd tools/yktool
@@ -90,3 +168,11 @@ Programmed slot 1 ok
 $ printf 'aaaa' | java -jar yktool.jar hmac 1 -x
 72:7E:C8:E8:15:EE:C5:32:8F:9D:9C:BE:5E:F2:4E:A8:36:D7:CE:56
 ```
+
+## Thanks to
+
+- https://github.com/arekinath/YkOtpApplet
+- https://github.com/arekinath/PivApplet#simulation
+- https://github.com/arekinath/yktool
+- https://github.com/arekinath/jcardsim
+- https://github.com/martinpaljak/oracle_javacard_sdks

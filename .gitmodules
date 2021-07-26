@@ -6,4 +6,4 @@
 	url = https://github.com/arekinath/yktool
 [submodule "tools/jcardsim"]
 	path = tools/jcardsim
-	url = https://github.com/licel/jcardsim
+	url = https://github.com/arekinath/jcardsim

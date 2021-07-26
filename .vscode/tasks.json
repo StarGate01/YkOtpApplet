@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build Applet",
+            "label": "Build YkHMACApplet",
             "type": "shell",
             "command": "ant dist",
             "group": {
@@ -14,7 +14,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Clean Applet",
+            "label": "Clean YkHMACApplet",
             "type": "shell",
             "command": "ant clean",
             "problemMatcher": []
@@ -33,6 +33,15 @@
             "problemMatcher": []
         },
         {
+            "label": "Clean jcardsim",
+            "type": "shell",
+            "command": "rm -rf target",
+            "options": {
+                "cwd": "${workspaceFolder}/tools/jcardsim"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Build yktool",
             "type": "shell",
             "command": "make yktool.jar",
@@ -43,7 +52,17 @@
             "problemMatcher": []
         },
         {
-            "label": "List connected Yubikeys",
+            "label": "Clean yktool",
+            "type": "shell",
+            "command": "make clean",
+            "options": {
+                "cwd": "${workspaceFolder}/tools/yktool"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "List Connected Yubikeys (yktool)",
             "type": "shell",
             "command": "java -jar yktool.jar list",
             "options": {
@@ -53,7 +72,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Program sample HMAC to Yubikey",
+            "label": "Program Sample HMAC To Yubikey (yktool)",
             "type": "shell",
             "command": "echo 'b6e3f555562c894b7af13b1db37f28deff3ea89b' | java -jar yktool.jar program hmac 1 -x -X",
             "options": {
@@ -63,7 +82,17 @@
             "problemMatcher": []
         },
         {
-            "label": "Test Applet ADPU",
+            "label": "Perform Sample Challenge With Yubikey (yktool)",
+            "type": "shell",
+            "command": "printf 'aaaa' | java -jar yktool.jar hmac 1 -x",
+            "options": {
+                "cwd": "${workspaceFolder}/tools/yktool"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Test Applet ADPU Sequence (jcardsim)",
             "type": "shell",
             "command": "java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.utils.APDUScriptTool test/jcardsim.cfg test/apdu.script",
             "group": {
@@ -73,11 +102,18 @@
             "problemMatcher": [],
         },
         {
-            "label": "Emulate Applet PC/SC",
+            "label": "Emulate Applet PC/SC (jcardsim + vsmartcard)",
             "type": "shell",
             "command": "java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg",
             "group": "test",
             "problemMatcher": [],
-        }
+        },
+        {
+            "label": "Send Boot Applet ADPU (opensc-tool)",
+            "type": "shell",
+            "command": "opensc-tool -r 'Virtual PCD 00 00' -s '80 b8 00 00 0e 07 a0 00 00 05 27 20 01 05 00 00 02 F F 7f'",
+            "group": "test",
+            "problemMatcher": [],
+        },
     ]
 }
