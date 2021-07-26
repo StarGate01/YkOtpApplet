@@ -43,6 +43,8 @@ You might have to compile `fdsm` yourself, and even switch to a more recent JDK 
 
 ## Emulation
 
+**Emulation is a work in progress and does not yet work**
+
 Install [vsmartcard](https://frankmorgner.github.io/vsmartcard/) and make sure it runs and connects to your PC/SC service. 
 
 Install [Maven](https://maven.apache.org/) (might be available in your package manager), then build  the **jcardsim** submodule or use the configured VS Code build task:
