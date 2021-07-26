@@ -43,7 +43,7 @@
             "problemMatcher": []
         },
         {
-            "label": "List Keys",
+            "label": "List connected Yubikeys",
             "type": "shell",
             "command": "java -jar yktool.jar list",
             "options": {
@@ -53,7 +53,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Program Sample HMAC",
+            "label": "Program sample HMAC to Yubikey",
             "type": "shell",
             "command": "echo 'b6e3f555562c894b7af13b1db37f28deff3ea89b' | java -jar yktool.jar program hmac 1 -x -X",
             "options": {
@@ -63,13 +63,20 @@
             "problemMatcher": []
         },
         {
-            "label": "Emulate",
+            "label": "Test Applet ADPU",
             "type": "shell",
-            "command": "java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target:./sdks/jc222_kit/lib/api.jar com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg",
+            "command": "java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.utils.APDUScriptTool test/jcardsim.cfg test/apdu.script",
             "group": {
                 "kind": "test",
                 "isDefault": true
             },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Emulate Applet PC/SC",
+            "type": "shell",
+            "command": "java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg",
+            "group": "test",
             "problemMatcher": [],
         }
     ]

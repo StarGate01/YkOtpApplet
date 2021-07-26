@@ -26,7 +26,6 @@ $ git clone --recurse-submodules https://github.com/StarGate01/vk-ykhmac
 Make sure you are using JDK 8. Install [Ant](https://ant.apache.org/) (might be available in your package manager) Then compile that applet like this, you can also use the configured VS Code build task.
 
 ```
-$ cd vk-ykhmac
 $ ant dist
 ```
 
@@ -35,7 +34,6 @@ $ ant dist
 Upload the `target/YkHMACApplet.cap` file to your card using [fdsm](https://github.com/fidesmo/fdsm):
 
 ```
-$ cd vk-ykhmac
 $ java -jar fdsm.jar --install target/YkHMACApplet.cap
 ```
 
@@ -43,24 +41,28 @@ You might have to compile `fdsm` yourself, and even switch to a more recent JDK 
 
 ## Emulation
 
-**Emulation is a work in progress and does not yet work**
-
-Install [vsmartcard](https://frankmorgner.github.io/vsmartcard/) and make sure it runs and connects to your PC/SC service. 
-
 Install [Maven](https://maven.apache.org/) (might be available in your package manager), then build  the **jcardsim** submodule or use the configured VS Code build task:
 
 ```
 $ cd tools/jcardsim
 $ JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn initialize
 § JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn clean install
+```
+
+Then test the applet using some sample APDUs, or use the configured VC Code test task:
 
 ```
+$ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.utils.APDUScriptTool test/jcardsim.cfg test/apdu.script
+```
+
+**PC/SC Emulation is a work in progress and does not yet work**
+
+Install [vsmartcard](https://frankmorgner.github.io/vsmartcard/) and make sure it runs and connects to your PC/SC service. 
 
 Then emulate the applet, or use the configured VS Code test task:
 
 ```
-$ cd ../..
-$ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target:./sdks/jc222_kit/lib/api.jar com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg
+$ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg
 ```
 
 If everything works, `pcsc_scan` should show a reader `Virtual PCD 00 00` with the applet emulated in it.
