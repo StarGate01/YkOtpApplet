@@ -1,3 +1,4 @@
 .gradle/
 build/
 ant-javacard.jar
+fdsm.jar
