@@ -1,9 +1,3 @@
 [submodule "sdks"]
 	path = sdks
 	url = https://github.com/martinpaljak/oracle_javacard_sdks
-[submodule "tools/yktool"]
-	path = tools/yktool
-	url = https://github.com/arekinath/yktool
-[submodule "tools/jcardsim"]
-	path = tools/jcardsim
-	url = https://github.com/arekinath/jcardsim

@@ -47,10 +47,10 @@ Since you probably do not have the application keys to deploy this specific AID,
 
 ## APDU Testing
 
-Install [Maven](https://maven.apache.org/) (might be available in your package manager), then build  the **jcardsim** submodule or use the configured VS Code build task:
+Install [Maven](https://maven.apache.org/) (might be available in your package manager), then build **jcardsim** (from https://github.com/arekinath/jcardsim).
 
 ```
-$ cd tools/jcardsim
+$ cd jcardsim
 $ JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn initialize
 § JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn clean install
 ```
@@ -58,7 +58,7 @@ $ JC_CLASSIC_HOME=../../sdks/jc305u3_kit/ mvn initialize
 Then test the applet using some sample APDUs, or use the configured VS Code test task:
 
 ```
-$ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.utils.APDUScriptTool test/jcardsim.cfg test/apdu.script
+$ java -cpjcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.utils.APDUScriptTool test/jcardsim.cfg test/apdu.script
 ```
 
 ## PC/SC Emulation
@@ -69,7 +69,7 @@ Install [vsmartcard](https://frankmorgner.github.io/vsmartcard/) (might be avail
 Then emulate the applet, or use the configured VS Code test task:
 
 ```
-$ java -cp tools/jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg
+$ java -cp jcardsim/target/jcardsim-3.0.5-SNAPSHOT.jar:./target com.licel.jcardsim.remote.VSmartCard test/jcardsim.cfg
 ```
 
 If everything works, a reader `Virtual PCD 00 00` with the applet emulated in it should show: 
@@ -147,17 +147,17 @@ From there on, the applet should behave like a hardware card running the applet 
 
 ## Programming a secret
 
-Build the **yktool** submodule, or use the configured VS Code build task:
+Build the **yktool** (from https://github.com/arekinath/yktool):
 
 ```
-$ cd tools/yktool
+$ cd yktool
 $ make yktool.jar
 ```
 
 Then use it to program a secret:
 
 ```
-$ cd tools/yktool
+$ cd yktool
 $ java -jar yktool.jar list
 Yubikeys available:
   - Yubikey 4 #279305487 v4.0.0
