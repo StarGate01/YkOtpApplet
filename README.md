@@ -24,7 +24,7 @@ It is also recommended to use VS Code, because then you can use the configured t
 Clone this repository:
 
 ```
-$ git clone --recurse-submodules https://github.com/StarGate01/vk-ykhmac
+$ git clone --recurse-submodules https://github.com/DangerousThings/flexsecure-ykhmac
 ```
 
 Make sure you are using JDK 8. Install [Ant](https://ant.apache.org/) (might be available in your package manager) Then compile that applet like this, you can also use the configured VS Code build task.
