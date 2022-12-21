@@ -5,7 +5,7 @@
     <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ant-javacard.jar"/>
     <javacard jckit="sdks/jc222_kit">
       <cap targetsdk="sdks/jc222_kit" output="target/YkHMACApplet.cap" sources="src" classes="target" aid="a0:00:00:05:27:20" version="1.0">
-        <applet class="com.vivokey.ykhmac.YkHMACApplet" aid="a0:00:00:05:27:20:01"/>
+        <applet class="com.vivokey.ykhmac.YkHMACApplet" aid="a0:00:00:05:27:20:01:01"/>
       </cap>
     </javacard>
   </target>
