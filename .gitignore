@@ -2,3 +2,4 @@
 build/
 ant-javacard.jar
 fdsm.jar
+target/
