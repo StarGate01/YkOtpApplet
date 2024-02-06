@@ -42,36 +42,6 @@
             "problemMatcher": []
         },
         {
-            "label": "Build yktool",
-            "type": "shell",
-            "command": "make yktool.jar",
-            "options": {
-                "cwd": "${workspaceFolder}/tools/yktool"
-            },
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "label": "Clean yktool",
-            "type": "shell",
-            "command": "make clean",
-            "options": {
-                "cwd": "${workspaceFolder}/tools/yktool"
-            },
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "label": "List Connected Yubikeys (yktool)",
-            "type": "shell",
-            "command": "java -jar yktool.jar list",
-            "options": {
-                "cwd": "${workspaceFolder}/tools/yktool"
-            },
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
             "label": "Install Applet (fdsm)",
             "type": "shell",
             "command": "java -jar fdsm.jar --install ${workspaceFolder}/target/YkHMACApplet.cap",
@@ -81,26 +51,6 @@
             "label": "List Installed Applets (fdsm)",
             "type": "shell",
             "command": "java -jar fdsm.jar --card-info && java -jar fdsm.jar --card-apps",
-            "problemMatcher": []
-        },
-        {
-            "label": "Program Sample HMAC To Yubikey (yktool)",
-            "type": "shell",
-            "command": "echo 'b6e3f555562c894b7af13b1db37f28deff3ea89b' | java -jar yktool.jar program hmac 1 -x -X",
-            "options": {
-                "cwd": "${workspaceFolder}/tools/yktool"
-            },
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "label": "Perform Sample Challenge With Yubikey (yktool)",
-            "type": "shell",
-            "command": "printf 'aaaa' | java -jar yktool.jar hmac 1 -x",
-            "options": {
-                "cwd": "${workspaceFolder}/tools/yktool"
-            },
-            "group": "build",
             "problemMatcher": []
         },
         {
